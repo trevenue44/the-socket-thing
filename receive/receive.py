@@ -20,7 +20,7 @@ def start_receiving():
     file_size = int(client_socket.recv(1024).decode('utf-8'))
     
     with open("received_file.txt", "wb") as file:
-        chunk = client_socket.recv(1 024)
+        chunk = client_socket.recv(1024)
         while chunk:
             file.write(chunk)
             chunk = client_socket.recv(1024)
