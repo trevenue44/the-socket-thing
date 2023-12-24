@@ -1,20 +1,8 @@
 import socket
+import os
 
-def start_receiving():
-    # server_ip = input("Enter the server IP Address: ").strip()
-    # server_port = input("Enter the server port: ").strip()
-
-    server_ip = "127.0.0.1"
-    server_port = "4004"
-
-    if server_port.isnumeric():
-        server_port = int(server_port)
-    else:
-        print('Invalid server port')
-        return
-
+def start_receiving(server_ip: str, server_port: int, dir: str):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
 
     try:
         client_socket.connect((server_ip, server_port))
@@ -23,9 +11,9 @@ def start_receiving():
         client_socket.close()
         return
 
-    file_size = int(client_socket.recv(1024).decode('utf-8'))
+    file_name, file_size = client_socket.recv(1024).decode('utf-8').split("<X>")
     
-    with open("received_file.txt", "wb") as file:
+    with open(os.path.join(dir, file_name), "wb") as file:
         chunk = client_socket.recv(1024)
         while chunk:
             file.write(chunk)
