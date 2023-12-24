@@ -14,8 +14,14 @@ def start_receiving():
         return
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
 
-    client_socket.connect((server_ip, server_port))
+    try:
+        client_socket.connect((server_ip, server_port))
+    except ConnectionRefusedError:
+        print(f"Connection refused on ({server_ip}, {server_port})")
+        client_socket.close()
+        return
 
     file_size = int(client_socket.recv(1024).decode('utf-8'))
     
