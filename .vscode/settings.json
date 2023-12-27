@@ -1,0 +1,10 @@
+{
+  "pylint.args": ["--extension-pkg-whitelist=PyQt6"],
+  "python.analysis.exclude": ["env", "venv"],
+  "python.analysis.typeCheckingMode": "strict",
+  "[python]": {
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
+}
